@@ -18,12 +18,18 @@ module "vpc" {
 
 # EKS Cluster
 module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.21.0"
+
   cluster_name    = "dotnet-eks"
   cluster_version = "1.29"
-  subnets         = module.vpc.private_subnets
-  vpc_id          = module.vpc.vpc_id
+
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.private_subnets
+
+  enable_irsa = true
 }
+
 
 # ECR Repository
 resource "aws_ecr_repository" "dotnet_app" {
