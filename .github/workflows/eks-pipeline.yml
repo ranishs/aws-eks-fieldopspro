@@ -20,7 +20,7 @@ jobs:
           role-to-assume: arn:aws:iam::649536287246:role/githuboidcrole
           aws-region: us-east-2
 
-      - run: terraform init
+      - run: terraform init -upgrade
         working-directory: infra/terraform
 
       - run: terraform apply -auto-approve
